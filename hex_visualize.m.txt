@@ -1,0 +1,52 @@
+clc;
+clear all;
+close all;
+
+disx= [-0.2 0   0.2  0.2  0    -0.2];
+disy= [ 0.1 0.2 0.1 -0.1 -0.2  -0.1];
+
+fid = fopen('abhilash.txt','r');
+f1 = figure;
+% f1.Visible = 'off';
+for t = 1:2
+    m = fscanf(fid,'%d\n',1);
+    n = fscanf(fid,'%d\n',1);
+    mx = linspace(0, n-1, n);
+    nx = linspace(0, m-1, m);
+    [X, Y] = meshgrid(nx, mx);
+    X(2:2:end, :) = X(2:2:end, :)+0.5;
+    % f1 = figure;
+    plot(Y,X,'k.','MarkerSize',5,'Color', [0.8 0.8 0.8]); hold on;
+    for y = 0:m
+        plot(0, y,'.', 'Color', [0 1 0]);
+    end
+    for y = 0:m
+        plot(n, y,'.', 'Color', [0 1 0]);
+    end
+    
+    
+    for k = 0:m*n-1
+        tline = fgetl(fid);
+        x = mod(k, n);
+        if (mod(x, 2) == 0)
+            y = ((k-x)/n);
+        else
+            y = ((k-x)/n)+0.5;
+        end
+        for i = 6:-1:1
+            if tline(i)=='1'
+                plot([x, x+disx(i)], [y, y+disy(i)], 'Color', [0 0 1]);
+            end
+        end
+    end
+    pbaspect([0.3 1 1])
+    axis([-1 n -1 m])
+    drawnow
+    % M(t) = getframe(f1);
+    t;
+end
+
+fclose(fid);
+
+% f1.Visible = 'on';
+% movie(f1, M,1,1);
