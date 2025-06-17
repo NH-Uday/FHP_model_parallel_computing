@@ -12,7 +12,6 @@ This project implements a parallel and serial Lattice Boltzmann Method (LBM) sim
 | `parallel.c` | Parallel MPI version with inter-process communication |
 | `parallel.sh` | SLURM batch script to run `parallel.c` on HPC |
 | `hex_visualize.m` | MATLAB script to visualize simulation frames |
-| `abhilash.txt` | Sample output file (can be renamed per timestep) |
 
 ---
 
